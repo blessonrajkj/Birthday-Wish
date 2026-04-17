@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Amma ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    color: #f5f5f5;
+}
+
+/* Background */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.35);
+}
+
+/* INTRO */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeOut 3s ease forwards;
+    animation-delay: 3s;
+}
+
+#intro h1 {
+    font-size: 40px;
+    color: gold;
+}
+
+@keyframes fadeOut {
+    to {opacity: 0; visibility: hidden;}
+}
+
+/* Sections */
+section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
+}
+section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero */
+.hero {
+    flex-direction: column;
+    text-align: center;
+}
+.hero h1 {
+    font-size: 40px;
+    background: linear-gradient(to right, #ffd700, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Button */
+.btn {
+    margin-top: 20px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(45deg,#d4af37,#ffd700);
+    color: black;
+    font-size: 16px;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 30px rgba(255,215,0,0.2);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Images & video */
+img, video {
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.7);
+    color: #ccc;
+    border-top: 1px solid rgba(255,215,0,0.2);
+}
+.footer .name {
+    color: gold;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 28px; }
+    #intro h1 { font-size: 26px; }
+    .card { padding: 18px; max-width: 90%; }
+    h2 { font-size: 20px; }
+    
+}
+
+/* Canvas */
+canvas {
+    position: fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background -->
+<video class="bg" autoplay muted loop>
+    <source src="background.mp4">
+</video>
+
+<!-- Intro -->
+<div id="intro">
+    <h1>For My Amma ❤️</h1>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>🎉 Happy Birthday Amma ❤️</h1>
+    <button class="btn" onclick="start()">Start Celebration</button>
+</section>
+
+<!-- Special Message -->
+<section>
+    <div class="card">
+        <img src="CAM08664(1).jpg">
+        <h2>
+        On this special moment,<br>
+        we want to wish you a very Happy Birthday, Amma ❤️<br>
+        May God bless you with good health, peace, and countless beautiful moments.<br>
+        Thank you for your endless love, care, and sacrifices.<br>
+        You are the reason behind our happiness.
+        </h2>
+    </div>
+</section>
+
+<!-- Slideshow -->
+<section>
+    <div class="card">
+        <h2>Our Memories</h2>
+        <img id="slide" src="20250629_184622.jpg">
+    </div>
+</section>
+
+<!-- Messages -->
+<section>
+    <div class="card">
+        <h2>💖 Messages</h2>
+
+        <h3>Happy Birthday ❤️<br>
+You are the heart of our family.
+Thank you for taking care of all of us with so much love and patience.
+We are lucky to have you in our lives.</h3>
+        <h5>- KANAKARAJ S</h5>
+
+        <h3>Happy Birthday Amma ❤️<br>
+To the woman who gave me life and made me who I am today…
+I can never repay your love and sacrifices.
+I promise I will make you proud.
+I love you so much.</h3>
+        <h5>- BLESSON RAJ K J</h5>
+
+        <h3>Happy Birthday Amma 💙<br>
+You are the best mom anyone could ask for.
+Thank you for always caring for us and making us happy.
+We love you so much.</h3>
+        <h5>- BLESSLIN RAJ K J</h5>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>Made with ❤️ for Amma</p>
+    <p class="name">– BLESSED FAM</p>
+</footer>
+
+<!-- Audio -->
+<audio id="voiceMsg">
+    <source src="voice.mp3">
+</audio>
+
+<canvas id="fx"></canvas>
+
+<script>
+
+/* Fireworks */
+const canvas=document.getElementById("fx");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let p=[];
+
+function burst(){
+ for(let i=0;i<200;i++){
+  p.push({
+   x:innerWidth/2,
+   y:innerHeight/2,
+   dx:(Math.random()-0.5)*12,
+   dy:(Math.random()-0.5)*12,
+   life:100,
+   color:`hsl(45,100%,${50 + Math.random()*30}%)`
+  });
+ }
+ animate();
+}
+
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ p.forEach((a,i)=>{
+  a.x+=a.dx; a.y+=a.dy; a.life--;
+  ctx.fillStyle=a.color;
+  ctx.fillRect(a.x,a.y,4,4);
+  if(a.life<=0) p.splice(i,1);
+ });
+ if(p.length) requestAnimationFrame(animate);
+}
+
+/* Slideshow FIX */
+let imgs=[
+"20250629_184622.jpg",
+"IMG-20241208-WA0005.jpg",
+"IMG-20250511-WA0136.jpg",
+"IMG-20251228-WA0012.jpg"
+];
+
+let idx=0;
+setInterval(()=>{
+ idx=(idx+1)%imgs.length;
+ document.getElementById("slide").src=imgs[idx];
+},2000);
+
+/* Start */
+function start(){
+ burst();
+ document.getElementById("voiceMsg").play();
+ window.scrollTo({top: window.innerHeight, behavior: 'smooth'});
+}
+
+/* Scroll animation */
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+ sections.forEach(sec => {
+  const top = sec.getBoundingClientRect().top;
+  if(top < window.innerHeight - 100){
+    sec.classList.add("show");
+  }
+ });
+});
+</script>
+<footer class="footer">
+    <p>© 2026 BLESSED FAM</p>
+</footer>
+
+</body>
+</html>
